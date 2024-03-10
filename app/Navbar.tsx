@@ -1,8 +1,13 @@
+"use client";
+import classNames from "classnames";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { MdNearbyError } from "react-icons/md";
 
 const Navbar = () => {
+  const currentPath = usePathname();
+
   const links = [
     { label: "Dashboard", href: "/dashboard" },
     { label: "Issues", href: "/issues" },
@@ -19,7 +24,15 @@ const Navbar = () => {
             {links.map((link) => (
               <li
                 key={link.href}
-                className="text-zinc-500 hover:text-zinc-800  active:text-black "
+                className={
+                  classNames({
+                    "text-zinc-950": currentPath === link.href,
+                    "text-zinc-500": link.href !== currentPath,
+                    "hover:text-zinc-800 transition-colors": true,
+                  })
+
+                  // key : value
+                }
               >
                 <Link className="transition-colors" href={link.href}>
                   {link.label}
