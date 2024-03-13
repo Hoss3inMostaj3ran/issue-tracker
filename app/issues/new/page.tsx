@@ -74,6 +74,7 @@ const NewIssue = () => {
         <button
           className="btn bg-gray-300 hover:bg-gray-400 mt-5"
           type="submit"
+          disabled={loader}
         >
           Submit Issue
           {loader && <Spinner />}
