@@ -5,14 +5,26 @@ import { useForm, Controller } from "react-hook-form";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { createIssueSchema } from "@/app/createIssueSchema";
+import { z } from "zod";
+import TextError from "@/app/components/TextError";
 
-interface IssueForm {
-  title: string;
-  description: string;
-}
+type IssueForm = z.infer<typeof createIssueSchema>;
+// interface IssueForm {
+//   title: string;
+//   description: string;
+// }
 
 const NewIssue = () => {
-  const { register, control, handleSubmit } = useForm<IssueForm>();
+  const {
+    register,
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IssueForm>({
+    resolver: zodResolver(createIssueSchema),
+  });
   const router = useRouter();
   const [error, setError] = useState("");
 
@@ -38,6 +50,7 @@ const NewIssue = () => {
             placeholder="Enter Title"
             className="input input-bordered  w-full max-w-3xl"
           />
+          {errors.title && <TextError error={errors.title.message!} />}
           <Controller
             name="description"
             control={control}
@@ -49,28 +62,12 @@ const NewIssue = () => {
               />
             )}
           />
+          {errors.description && (
+            <TextError error={errors.description.message!} />
+          )}
         </div>
 
-        {error && (
-          <div className=" w-full max-w-3xl">
-            <div role="alert" className="alert alert-error">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="stroke-current shrink-0 h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-              <span>{error}</span>
-            </div>
-          </div>
-        )}
+        {error && <TextError error={error} />}
         <button
           className="btn bg-gray-300 hover:bg-gray-400 mt-5"
           type="submit"
