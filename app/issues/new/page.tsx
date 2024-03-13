@@ -9,6 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { createIssueSchema } from "@/app/createIssueSchema";
 import { z } from "zod";
 import TextError from "@/app/components/TextError";
+import Spinner from "@/app/components/Spinner";
 
 type IssueForm = z.infer<typeof createIssueSchema>;
 // interface IssueForm {
@@ -27,6 +28,7 @@ const NewIssue = () => {
   });
   const router = useRouter();
   const [error, setError] = useState("");
+  const [loader, setLoader] = useState(false);
 
   return (
     <>
@@ -35,9 +37,11 @@ const NewIssue = () => {
       <form
         onSubmit={handleSubmit(async (data) => {
           try {
+            setLoader(true);
             await axios.post("/api/issues", data);
             router.push("/issues");
           } catch (error) {
+            setLoader(false);
             setError(error.message);
           }
         })}
@@ -73,6 +77,7 @@ const NewIssue = () => {
           type="submit"
         >
           Submit Issue
+          {loader && <Spinner />}
         </button>
       </form>
     </>
