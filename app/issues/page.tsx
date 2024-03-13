@@ -1,10 +1,10 @@
 import Link from "next/link";
-import React from "react";
+import Issues from "./Issues";
 
-const Issues = () => {
+const page = () => {
   return (
     <div className="p-5">
-      Issues
+      <Issues />
       <br />
       <Link className="btn btn-outline" href="/issues/new">
         New Issue
@@ -13,4 +13,4 @@ const Issues = () => {
   );
 };
 
-export default Issues;
+export default page;
