@@ -30,23 +30,22 @@ const NewIssue = () => {
   const [error, setError] = useState("");
   const [loader, setLoader] = useState(false);
 
+  const onSubmit = handleSubmit(async (data) => {
+    try {
+      setLoader(true);
+      await axios.post("/api/issues", data);
+      router.push("/issues");
+    } catch (error) {
+      setLoader(false);
+      setError(error.message);
+    }
+  });
+
   return (
     <>
       <h1 className="text-2xl mt-5 pt-2 mx-5">What is your Issue? </h1>
 
-      <form
-        onSubmit={handleSubmit(async (data) => {
-          try {
-            setLoader(true);
-            await axios.post("/api/issues", data);
-            router.push("/issues");
-          } catch (error) {
-            setLoader(false);
-            setError(error.message);
-          }
-        })}
-        className="p-5"
-      >
+      <form onSubmit={onSubmit} className="p-5">
         <div className="flex flex-col gap-4">
           <input
             {...register("title")}
