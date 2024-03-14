@@ -1,4 +1,5 @@
 import prisma from "@/prisma/client";
+import StatusBadge from "./StatusBadge";
 
 const Issues = async () => {
   const issues = await prisma.issue.findMany({ take: 10 });
@@ -20,7 +21,9 @@ const Issues = async () => {
             <tr key={i.id} className="hover">
               <td>{i.id}</td>
               <th>{i.title}</th>
-              <td>{i.status}</td>
+              <td>
+                <StatusBadge status={i.status} />
+              </td>
               <td>{i.createdAt.toDateString()}</td>
             </tr>
           ))}
