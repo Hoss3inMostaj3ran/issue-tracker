@@ -1,14 +1,13 @@
 import Link from "next/link";
-import Issues from "./Issues";
+import IssuesTable from "./IssuesTable";
+import delay from "delay";
+import NewIssueBtn from "./NewIssueBtn";
 
-const page = () => {
+const page = async () => {
+  await delay(2000);
   return (
     <div className="p-5">
-      <Issues />
-      <br />
-      <Link className="btn btn-outline" href="/issues/new">
-        New Issue
-      </Link>
+      <IssuesTable />
     </div>
   );
 };

@@ -1,12 +1,13 @@
 import prisma from "@/prisma/client";
 import StatusBadge from "./StatusBadge";
+import NewIssueBtn from "./NewIssueBtn";
 
 const Issues = async () => {
   const issues = await prisma.issue.findMany({ take: 10 });
 
   return (
     <div className="overflow-x-auto">
-      <table className="table table-zebra">
+      <table className="table table-zebra mb-5">
         {/* head */}
         <thead>
           <tr className="text-base-content font-sans text-lg">
@@ -29,6 +30,7 @@ const Issues = async () => {
           ))}
         </tbody>
       </table>
+      <NewIssueBtn />
     </div>
   );
 };
