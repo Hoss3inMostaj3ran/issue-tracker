@@ -67,9 +67,7 @@ const IssuesDetailPage = async ({ params: { id } }: Props) => {
         </div>
         <div className="stat flex-auto">
           <div className="stat-title">Description :</div>
-          <ReactMarkdown className="stat-value">
-            {issue?.description}
-          </ReactMarkdown>
+          <ReactMarkdown className="stat">{issue?.description}</ReactMarkdown>
         </div>
       </div>
     </div>
