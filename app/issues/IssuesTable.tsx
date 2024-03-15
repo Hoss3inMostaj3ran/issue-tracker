@@ -1,6 +1,7 @@
 import prisma from "@/prisma/client";
 import StatusBadge from "./StatusBadge";
 import NewIssueBtn from "./NewIssueBtn";
+import Link from "next/link";
 
 const Issues = async () => {
   const issues = await prisma.issue.findMany({ take: 10 });
@@ -21,7 +22,9 @@ const Issues = async () => {
           {issues.map((i) => (
             <tr key={i.id} className="hover">
               <td>{i.id}</td>
-              <th>{i.title}</th>
+              <th>
+                <Link href={`issues/${i.id}`}>{i.title}</Link>
+              </th>
               <td>
                 <StatusBadge status={i.status} />
               </td>

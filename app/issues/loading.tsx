@@ -4,7 +4,7 @@ import StatusBadge from "./StatusBadge";
 import NewIssueBtn from "./NewIssueBtn";
 
 const loading = () => {
-  const issues = [1, 2, 3, 4];
+  const issues = [1, 2, 3, 4, 5, 6, 7];
   return (
     <div className="p-5">
       <table className="table table-zebra mb-5">
