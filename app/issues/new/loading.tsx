@@ -1,5 +1,7 @@
+import GeneralLoading from "@/app/components/GeneralLoading";
+
 const Loading = () => {
-  return <div>Loading...</div>;
+  return <GeneralLoading />;
 };
 
 export default Loading;
