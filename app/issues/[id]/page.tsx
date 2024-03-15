@@ -1,5 +1,7 @@
 import prisma from "@/prisma/client";
 import { notFound } from "next/navigation";
+import StatusBadge from "../StatusBadge";
+import ReactMarkdown from "react-markdown";
 
 interface Props {
   params: { id: string };
@@ -16,8 +18,8 @@ const IssuesDetailPage = async ({ params: { id } }: Props) => {
 
   return (
     <div>
-      <div className="stats shadow">
-        <div className="stat">
+      <div className="stats shadow flex lg:flex-row max-lg:flex-col">
+        <div className="stat flex-1">
           <div className="stat-figure text-secondary">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -33,33 +35,18 @@ const IssuesDetailPage = async ({ params: { id } }: Props) => {
               ></path>
             </svg>
           </div>
-          <div className="stat-title">Downloads</div>
-          <div className="stat-value">31K</div>
-          <div className="stat-desc">Jan 1st - Feb 1st</div>
+          <div className="stat-title">Issue ID</div>
+          <div className="stat-value">{issue?.id}</div>
         </div>
-
-        <div className="stat">
+        <div className="stat flex-1">
           <div className="stat-figure text-secondary">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              className="inline-block w-8 h-8 stroke-current"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
-              ></path>
-            </svg>
+            {<StatusBadge status={issue.status} />}
           </div>
-          <div className="stat-title">New Users</div>
-          <div className="stat-value">4,200</div>
-          <div className="stat-desc">↗︎ 400 (22%)</div>
+          <div className="stat-figure text-secondary"></div>
+          <div className="stat-title">Title :</div>
+          <div className="stat-value">{issue?.title}</div>
         </div>
-
-        <div className="stat">
+        <div className="stat flex-1">
           <div className="stat-figure text-secondary">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -75,29 +62,16 @@ const IssuesDetailPage = async ({ params: { id } }: Props) => {
               ></path>
             </svg>
           </div>
-          <div className="stat-title">New Registers</div>
-          <div className="stat-value">1,200</div>
-          <div className="stat-desc">↘︎ 90 (14%)</div>
+          <div className="stat-title">Created Date :</div>
+          <div className="stat-value">{issue?.createdAt.toDateString()}</div>
+        </div>
+        <div className="stat flex-auto">
+          <div className="stat-title">Description :</div>
+          <ReactMarkdown className="stat-value">
+            {issue?.description}
+          </ReactMarkdown>
         </div>
       </div>
-      <ul>
-        <li>
-          <span>Issue: </span>
-          {issue?.id}
-        </li>
-        <li>
-          <span>Title: </span>
-          {issue?.title}
-        </li>
-        <li>
-          <span>Description: </span>
-          {issue?.description}
-        </li>
-        <li>
-          <span>Created Date: </span>
-          {issue?.createdAt.toDateString()}
-        </li>
-      </ul>
     </div>
   );
 };

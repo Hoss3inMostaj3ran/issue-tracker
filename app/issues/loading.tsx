@@ -1,6 +1,5 @@
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import StatusBadge from "./StatusBadge";
 import NewIssueBtn from "./NewIssueBtn";
 
 const loading = () => {
