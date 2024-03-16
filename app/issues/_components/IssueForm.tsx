@@ -31,6 +31,7 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
       setLoader(true);
       await axios.post("/api/issues", data);
       router.push("/issues");
+      router.refresh();
     } catch (error) {
       if (typeof error === "string") {
         setError(error);
