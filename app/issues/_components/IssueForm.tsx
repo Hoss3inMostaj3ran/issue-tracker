@@ -1,6 +1,6 @@
 "use client";
 import { Spinner, TextError } from "@/app/components";
-import { createIssueSchema } from "@/app/issueSchema";
+import { issueSchema } from "@/app/issueSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Issue } from "@prisma/client";
 import axios from "axios";
@@ -11,7 +11,7 @@ import { Controller, useForm } from "react-hook-form";
 import SimpleMDE from "react-simplemde-editor";
 import { z } from "zod";
 
-type IssueFormData = z.infer<typeof createIssueSchema>;
+type IssueFormData = z.infer<typeof issueSchema>;
 
 const IssueForm = ({ issue }: { issue?: Issue }) => {
   const {
@@ -20,7 +20,7 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
     handleSubmit,
     formState: { errors },
   } = useForm<IssueFormData>({
-    resolver: zodResolver(createIssueSchema),
+    resolver: zodResolver(issueSchema),
   });
   const router = useRouter();
   const [error, setError] = useState("");
@@ -32,8 +32,12 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
       await axios.post("/api/issues", data);
       router.push("/issues");
     } catch (error) {
+      if (typeof error === "string") {
+        setError(error);
+      } else {
+        setError("An unknown error occurred.");
+      }
       setLoader(false);
-      setError(error.message);
     }
   });
 
