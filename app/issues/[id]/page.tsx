@@ -2,6 +2,9 @@ import prisma from "@/prisma/client";
 import { notFound } from "next/navigation";
 import StatusBadge from "../StatusBadge";
 import ReactMarkdown from "react-markdown";
+import { Box, Grid } from "@radix-ui/themes";
+import Link from "next/link";
+import { FaEdit } from "react-icons/fa";
 
 interface Props {
   params: { id: string };
@@ -17,8 +20,8 @@ const IssuesDetailPage = async ({ params: { id } }: Props) => {
   if (!issue) notFound();
 
   return (
-    <div className="flex flex-col  gap-7">
-      <div id="capilot">
+    <Grid columns={{ initial: "1", md: "2" }} gap="3">
+      <Box id="capilot">
         <div className="container mx-auto p-4">
           <div className="bg-white rounded-lg shadow-md p-6">
             <h1 className="text-2xl font-medium mb-4">Issue Details</h1>
@@ -30,7 +33,7 @@ const IssuesDetailPage = async ({ params: { id } }: Props) => {
             </p>
             <p className="text-gray-600 mb-2 font-medium">
               Status:{" "}
-              <span className="text-green-500 mx-3">
+              <span className=" mx-3">
                 {<StatusBadge status={issue.status} />}
               </span>
             </p>
@@ -48,8 +51,14 @@ const IssuesDetailPage = async ({ params: { id } }: Props) => {
             </p>
           </div>
         </div>
-      </div>
-    </div>
+      </Box>
+      <Box p="5">
+        <Link href={`/issues/${id}/edit`} className="btn btn-outline">
+          <FaEdit />
+          Edit
+        </Link>
+      </Box>
+    </Grid>
   );
 };
 
