@@ -1,5 +1,4 @@
 import { Status } from "@prisma/client";
-import { ColorSchemeEnum } from "next/dist/lib/metadata/types/metadata-types";
 
 interface Props {
   status: Status;

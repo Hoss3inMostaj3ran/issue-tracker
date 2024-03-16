@@ -1,15 +1,14 @@
 "use client";
-import SimpleMDE from "react-simplemde-editor";
-import "easymde/dist/easymde.min.css";
-import { useForm, Controller } from "react-hook-form";
+import { Spinner, TextError } from "@/app/components";
+import { createIssueSchema } from "@/app/createIssueSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
+import "easymde/dist/easymde.min.css";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { createIssueSchema } from "@/app/createIssueSchema";
+import { Controller, useForm } from "react-hook-form";
+import SimpleMDE from "react-simplemde-editor";
 import { z } from "zod";
-import TextError from "@/app/components/TextError";
-import Spinner from "@/app/components/Spinner";
 
 type IssueForm = z.infer<typeof createIssueSchema>;
 // interface IssueForm {

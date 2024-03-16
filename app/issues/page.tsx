@@ -1,4 +1,3 @@
-import Link from "next/link";
 import IssuesTable from "./IssuesTable";
 
 const page = async () => {

@@ -1,10 +1,10 @@
 import prisma from "@/prisma/client";
-import { notFound } from "next/navigation";
-import StatusBadge from "../StatusBadge";
-import ReactMarkdown from "react-markdown";
 import { Box, Grid } from "@radix-ui/themes";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { FaEdit } from "react-icons/fa";
+import ReactMarkdown from "react-markdown";
+import StatusBadge from "../StatusBadge";
 
 interface Props {
   params: { id: string };
