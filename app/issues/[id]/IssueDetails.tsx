@@ -5,7 +5,7 @@ import { Issue } from "@prisma/client";
 const IssueDetails = ({ issue }: { issue: Issue }) => {
   return (
     <div className="container mx-auto p-4">
-      <div className="bg-white rounded-lg shadow-md p-6">
+      <div className="bg-white rounded-lg shadow-md p-6 overflow-x-hidden">
         <h1 className="text-2xl font-medium mb-4">Issue Details</h1>
         <p className="text-gray-600 mb-2 font-medium">
           Issue ID: <span className="text-blue-500">{issue?.id}</span>
@@ -25,7 +25,7 @@ const IssueDetails = ({ issue }: { issue: Issue }) => {
         </p>
         <p className="text-gray-600 mb-2 font-medium">
           Description:{" "}
-          <ReactMarkdown className="text-gray-800 prose ">
+          <ReactMarkdown className="text-gray-800 prose max-w-full ">
             {issue?.description}
           </ReactMarkdown>
         </p>

@@ -3,12 +3,10 @@ import { FaEdit } from "react-icons/fa";
 
 const EditButton = ({ id }: { id: number }) => {
   return (
-    <button>
-      <Link href={`/issues/${id}/edit`} className="btn btn-outline">
-        <FaEdit />
-        Edit
-      </Link>
-    </button>
+    <Link href={`/issues/${id}/edit`} className="btn bg-sky-300">
+      <FaEdit />
+      Edit
+    </Link>
   );
 };
 
