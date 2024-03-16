@@ -1,6 +1,6 @@
 "use client";
 import { Spinner, TextError } from "@/app/components";
-import { createIssueSchema } from "@/app/createIssueSchema";
+import { createIssueSchema } from "@/app/issueSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Issue } from "@prisma/client";
 import axios from "axios";
