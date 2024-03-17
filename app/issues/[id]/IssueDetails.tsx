@@ -25,7 +25,7 @@ const IssueDetails = ({ issue }: { issue: Issue }) => {
         </p>
         <p className="text-gray-600 mb-2 font-medium">
           Description:{" "}
-          <ReactMarkdown className="text-gray-800 prose max-w-full ">
+          <ReactMarkdown className="text-gray-800 prose max-w-full p-5">
             {issue?.description}
           </ReactMarkdown>
         </p>
