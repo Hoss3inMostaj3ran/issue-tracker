@@ -1,5 +1,5 @@
 "use client";
-import { TextError } from "@/app/components";
+import { Spinner, TextError } from "@/app/components";
 import { AlertDialog, Button, Flex } from "@radix-ui/themes";
 import axios from "axios";
 import Link from "next/link";
@@ -10,13 +10,16 @@ import { FaTrash } from "react-icons/fa";
 const DeleteButton = ({ id }: { id: number }) => {
   const router = useRouter();
   const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleDelete = async () => {
     try {
+      setLoading(true);
       await axios.delete("/api/issues/" + id);
       router.push("/issues");
       router.refresh();
     } catch (error) {
+      setLoading(false);
       setError(true);
     }
   };
@@ -25,10 +28,13 @@ const DeleteButton = ({ id }: { id: number }) => {
     <>
       <AlertDialog.Root>
         <AlertDialog.Trigger>
-          <Link href={`/issues/${id}`} className="btn bg-error">
-            <FaTrash />
-            Delete
-          </Link>
+          <button className="btn bg-error" disabled={loading}>
+            <Link href={`/issues/${id}`} className="flex gap-2">
+              <FaTrash />
+              Delete
+              {loading && <Spinner />}
+            </Link>
+          </button>
         </AlertDialog.Trigger>
         <AlertDialog.Content style={{ maxWidth: 450 }}>
           <AlertDialog.Title>Delete Issue</AlertDialog.Title>

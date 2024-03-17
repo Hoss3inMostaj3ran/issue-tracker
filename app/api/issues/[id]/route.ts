@@ -1,8 +1,7 @@
 import { issueSchema } from "@/app/issueSchema";
 import prisma from "@/prisma/client";
-import { error } from "console";
 import { NextRequest, NextResponse } from "next/server";
-
+import delay from "delay";
 export async function PATCH(
   req: NextRequest,
   { params }: { params: { id: string } }

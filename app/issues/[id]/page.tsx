@@ -23,7 +23,7 @@ const IssuesDetailPage = async ({ params: { id } }: Props) => {
       <Box id="issue-details" className="col-span-4">
         <IssueDetails issue={issue} />
       </Box>
-      <Box p="5">
+      <Box p="5" mt="3">
         <Flex direction="column" gap="3">
           <EditButton id={parseInt(id)} />
           <DeleteButton id={parseInt(id)} />
