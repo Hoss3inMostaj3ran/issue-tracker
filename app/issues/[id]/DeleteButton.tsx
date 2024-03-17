@@ -9,7 +9,7 @@ import { FaTrash } from "react-icons/fa";
 
 const DeleteButton = ({ id }: { id: number }) => {
   const router = useRouter();
-  const [error, setError] = useState("");
+  const [error, setError] = useState(false);
 
   const handleDelete = async () => {
     try {
@@ -17,13 +17,12 @@ const DeleteButton = ({ id }: { id: number }) => {
       router.push("/issues");
       router.refresh();
     } catch (error) {
-      setError("The Unknown error is occured!");
+      setError(true);
     }
   };
 
   return (
     <>
-      {error && <TextError error={error} />}
       <AlertDialog.Root>
         <AlertDialog.Trigger>
           <Link href={`/issues/${id}`} className="btn bg-error">
@@ -50,6 +49,24 @@ const DeleteButton = ({ id }: { id: number }) => {
               </Button>
             </AlertDialog.Action>
           </Flex>
+        </AlertDialog.Content>
+      </AlertDialog.Root>
+
+      {/* if Error Exist */}
+      <AlertDialog.Root open={error}>
+        <AlertDialog.Content>
+          <AlertDialog.Title>Error</AlertDialog.Title>
+          <AlertDialog.Description>
+            <TextError error="This issue could not be deleted!" />
+          </AlertDialog.Description>
+          <Button
+            color="gray"
+            variant="surface"
+            mt="3"
+            onClick={() => setError(false)}
+          >
+            OK
+          </Button>
         </AlertDialog.Content>
       </AlertDialog.Root>
     </>
