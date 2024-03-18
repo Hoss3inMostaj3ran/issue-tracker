@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { MdNearbyError } from "react-icons/md";
 import { Spinner } from "./components";
 import { Container, Flex } from "@radix-ui/themes";
+import Image from "next/image";
 
 const Navbar = () => {
   const currentPath = usePathname();
@@ -55,35 +56,26 @@ const Navbar = () => {
                   className="btn btn-ghost btn-circle avatar"
                 >
                   <div className="w-10 rounded-full">
-                    <img
-                      alt="Tailwind CSS Navbar component"
-                      src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-                    />
+                    {session.user?.image ? (
+                      <Image
+                        src={session.user.image}
+                        alt="User Profile Image"
+                      />
+                    ) : (
+                      <img
+                        alt="User Profile Image"
+                        src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                      />
+                    )}
                   </div>
                 </div>
-                <ul
-                  tabIndex={0}
-                  className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
-                >
-                  <li>
-                    <a className="justify-between">
-                      Profile
-                      <span className="badge">New</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a>Settings</a>
-                  </li>
-                  <li>
-                    {status === "authenticated" && (
+                <ul className="shadow menu menu-sm dropdown-content bg-base-100 rounded-box space-y-3 p-3">
+                  <li>{session.user?.email}</li>
+                  {status === "authenticated" && (
+                    <li>
                       <Link href="/api/auth/signout">Log out</Link>
-                    )}
-                  </li>
-                  <li>
-                    {status == "unauthenticated" && (
-                      <Link href="/api/auth/signin">Login</Link>
-                    )}
-                  </li>
+                    </li>
+                  )}
                 </ul>
               </div>
             )}
