@@ -7,6 +7,16 @@ import bcrypt from "bcrypt";
 
 const handler = NextAuth({
   adapter: PrismaAdapter(prisma),
+  callbacks: {
+    // Using the `...rest` parameter to be able to narrow down the type based on `trigger`
+    jwt({ token, trigger, session }) {
+      if (trigger === "update" && session?.name) {
+        // Note, that `session` can be any arbitrary object, remember to validate it!
+        token.name = session.name;
+      }
+      return token;
+    },
+  },
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -38,6 +48,9 @@ const handler = NextAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
   ],
+  session: {
+    strategy: "jwt",
+  },
 });
 
 export { handler as GET, handler as POST };

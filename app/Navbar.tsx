@@ -1,12 +1,15 @@
 "use client";
 import classNames from "classnames";
-import Image from "next/image";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { MdNearbyError } from "react-icons/md";
+import { Spinner } from "./components";
 
 const Navbar = () => {
   const currentPath = usePathname();
+
+  const { status, data: session } = useSession();
 
   const links = [
     { label: "Dashboard", href: "/dashboard" },
@@ -39,6 +42,16 @@ const Navbar = () => {
                 </Link>
               </li>
             ))}
+
+            <div className="transition-colors">
+              {status === "authenticated" && (
+                <Link href="/api/auth/signout">Log out</Link>
+              )}
+              {status == "unauthenticated" && (
+                <Link href="/api/auth/signin">Login</Link>
+              )}
+              {status == "loading" && <Spinner />}
+            </div>
           </ul>
         </div>
         <div className="flex-none gap-2">
@@ -69,7 +82,14 @@ const Navbar = () => {
                 <a>Settings</a>
               </li>
               <li>
-                <a>Logout</a>
+                {status === "authenticated" && (
+                  <Link href="/api/auth/signout">Log out</Link>
+                )}
+              </li>
+              <li>
+                {status == "unauthenticated" && (
+                  <Link href="/api/auth/signin">Login</Link>
+                )}
               </li>
             </ul>
           </div>
