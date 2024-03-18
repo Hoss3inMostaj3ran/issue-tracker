@@ -20,4 +20,16 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+
+  .nav-links {
+    @apply text-zinc-500
+  }
+
+  .nav-links :hover {
+    @apply text-black transition-colors
+  }
+
+  .nav-links-active {
+    @apply text-zinc-950
+  }
 }
