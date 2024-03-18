@@ -60,9 +60,11 @@ const Navbar = () => {
                       <Image
                         src={session.user.image}
                         alt="User Profile Image"
+                        referrerPolicy="no-referrer"
                       />
                     ) : (
                       <img
+                        referrerPolicy="no-referrer"
                         alt="User Profile Image"
                         src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
                       />
