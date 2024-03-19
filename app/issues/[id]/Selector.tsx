@@ -10,7 +10,7 @@ const Selector = async () => {
       className="select select-accent select-bordered w-full max-w-xs"
     >
       <option disabled selected>
-        Who shot first?
+        List of users
       </option>
       {users.map((u) => (
         <option key={u.id}>{u.name}</option>
