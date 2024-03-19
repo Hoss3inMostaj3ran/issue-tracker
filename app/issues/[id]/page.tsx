@@ -7,6 +7,7 @@ import DeleteButton from "./DeleteButton";
 import EditButton from "./EditButton";
 import IssueDetails from "./IssueDetails";
 import Selector from "./Selector";
+import SelectorClient from "./SelectorClient";
 
 interface Props {
   params: { id: string };
@@ -33,7 +34,7 @@ const IssuesDetailPage = async ({ params: { id } }: Props) => {
           <Flex direction="column" gap="3">
             <EditButton id={parseInt(id)} />
             <DeleteButton id={parseInt(id)} />
-            <Selector />
+            <SelectorClient />
           </Flex>
         </Box>
       )}
