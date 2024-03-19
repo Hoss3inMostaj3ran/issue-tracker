@@ -1,4 +1,9 @@
-const Selector = () => {
+import prisma from "@/prisma/client";
+
+const Selector = async () => {
+  const users = await prisma.user.findMany({
+    where: {},
+  });
   return (
     <select
       title="Test"
@@ -7,8 +12,9 @@ const Selector = () => {
       <option disabled selected>
         Who shot first?
       </option>
-      <option>Han Solo</option>
-      <option>Greedo</option>
+      {users.map((u) => (
+        <option key={u.id}>{u.name}</option>
+      ))}
     </select>
   );
 };
