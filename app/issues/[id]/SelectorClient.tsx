@@ -4,20 +4,21 @@ import { Issue, User } from "@prisma/client";
 import { Select } from "@radix-ui/themes";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import Skeleton from "react-loading-skeleton";
 import toast, { Toaster } from "react-hot-toast";
+import Skeleton from "react-loading-skeleton";
 
 const SelectorClient = ({ issue }: { issue: Issue }) => {
-  const {
-    data: users,
-    error,
-    isLoading,
-  } = useQuery<User[]>({
-    queryKey: ["users"],
-    queryFn: () => axios.get("/api/users").then((resp) => resp.data),
-    staleTime: 60 * 1000,
-    retry: 3,
-  });
+  const { data: users, error, isLoading } = useUser();
+
+  const handleSelector = async (id: string) => {
+    try {
+      await axios.patch(`/api/issues/${issue.id}`, {
+        userId: checkId(id),
+      });
+    } catch (error) {
+      toast.error("Change could not be saved");
+    }
+  };
 
   if (isLoading) return <Skeleton height="40px" />;
   if (error) console.log(error);
@@ -33,15 +34,7 @@ const SelectorClient = ({ issue }: { issue: Issue }) => {
       <Select.Root
         defaultValue={issue.userId || "unassigned"}
         size={"3"}
-        onValueChange={async (id) => {
-          try {
-            await axios.patch(`/api/issues/${issue.id}`, {
-              userId: checkId(id),
-            });
-          } catch (error) {
-            toast.error("Change could not be saved");
-          }
-        }}
+        onValueChange={handleSelector}
       >
         <Select.Trigger
           className="select select-primary select-bordered border-2 w-full max-w-xs"
@@ -65,5 +58,12 @@ const SelectorClient = ({ issue }: { issue: Issue }) => {
   );
 };
 
+const useUser = () =>
+  useQuery<User[]>({
+    queryKey: ["users"],
+    queryFn: () => axios.get("/api/users").then((resp) => resp.data),
+    staleTime: 3600 * 1000,
+    retry: 3,
+  });
+
 export default SelectorClient;
-// className="select select-secondary select-bordered border-2 w-full max-w-xs"
