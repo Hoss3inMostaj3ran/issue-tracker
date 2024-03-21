@@ -1,11 +1,12 @@
 "use client";
 
-import { User } from "@prisma/client";
+import { Issue, User } from "@prisma/client";
+import { Select } from "@radix-ui/themes";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import Skeleton from "react-loading-skeleton";
 
-const SelectorClient = () => {
+const SelectorClient = ({ issue }: { issue: Issue }) => {
   const {
     data: users,
     error,
@@ -19,24 +20,39 @@ const SelectorClient = () => {
 
   if (isLoading) return <Skeleton height="40px" />;
 
+  const checkId = (id: null | "unassigned" | string) => {
+    if (id === "unassigned") return null;
+    else if (id !== null) return id;
+    else return null;
+  };
+
   return (
-    <select
-      title="Test"
-      className="select select-accent select-bordered w-full max-w-xs"
+    <Select.Root
+      defaultValue={issue.userId || "unassigned"}
+      size={"3"}
+      onValueChange={(id) => {
+        axios.patch(`/api/issues/${issue.id}`, { userId: checkId(id) });
+      }}
     >
-      <option disabled selected>
-        List of users
-      </option>
-      {error && (
-        <option disabled className="text-red-600">
-          There is Problem in Fetch Data
-        </option>
-      )}
-      {users?.map((u) => (
-        <option key={u.id}>{u.name}</option>
-      ))}
-    </select>
+      <Select.Trigger
+        className="select select-primary select-bordered border-2 w-full max-w-xs"
+        radius="none"
+        placeholder="Assign user..."
+      />
+      <Select.Content>
+        <Select.Group>
+          <Select.Label>Suggestions</Select.Label>
+          <Select.Item value="unassigned">Unassigned</Select.Item>
+          {users?.map((u) => (
+            <Select.Item key={u.id} value={u.id}>
+              {u.name}
+            </Select.Item>
+          ))}
+        </Select.Group>
+      </Select.Content>
+    </Select.Root>
   );
 };
 
 export default SelectorClient;
+// className="select select-secondary select-bordered border-2 w-full max-w-xs"
