@@ -1,6 +1,5 @@
 import prisma from "@/prisma/client";
 import StatusBadge from "./StatusBadge";
-import NewIssueBtn from "./NewIssueBtn";
 import Link from "next/link";
 
 const Issues = async () => {
@@ -33,7 +32,6 @@ const Issues = async () => {
           ))}
         </tbody>
       </table>
-      <NewIssueBtn />
     </div>
   );
 };

@@ -28,6 +28,7 @@ enum Status {
   OPEN
   CLOSE
   IN_PROGRESS
+  UNDEFINED
 }
 
 model Account {
