@@ -1,10 +1,9 @@
-import { Status } from "@prisma/client";
-import IssueFilter from "./_components/IssueFilter";
-import IssuesTable from "./IssuesTable";
-import NewIssueBtn from "./NewIssueBtn";
 import prisma from "@/prisma/client";
-import StatusBadge from "./StatusBadge";
+import { Status } from "@prisma/client";
 import Link from "next/link";
+import IssueFilter from "./_components/IssueFilter";
+import NewIssueBtn from "./NewIssueBtn";
+import StatusBadge from "./StatusBadge";
 
 type Props = {
   searchParams: { status: Status };
