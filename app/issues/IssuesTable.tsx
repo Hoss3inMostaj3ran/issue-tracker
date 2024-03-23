@@ -1,9 +1,9 @@
-import prisma from "@/prisma/client";
+import { Issue } from "@prisma/client";
 import StatusBadge from "./StatusBadge";
 import Link from "next/link";
 
-const Issues = async () => {
-  const issues = await prisma.issue.findMany({ take: 10 });
+const Issues = async ({ issues }: Issue) => {
+  // const issues = await prisma.issue.findMany({ take: 10 });
 
   return (
     <div className="overflow-x-auto">
