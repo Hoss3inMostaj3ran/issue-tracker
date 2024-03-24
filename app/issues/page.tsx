@@ -18,12 +18,6 @@ const page = async ({ searchParams }: Props) => {
     ? searchParams.status
     : undefined;
 
-  const issues = await prisma.issue.findMany({
-    where: {
-      status: checkStatus,
-    },
-  });
-
   const tableColumns: {
     lable: string;
     value: keyof Issue;
@@ -32,6 +26,31 @@ const page = async ({ searchParams }: Props) => {
     { lable: "Status", value: "status" },
     { lable: "Created", value: "createdAt" },
   ];
+
+  const orderbyAsc: boolean = true;
+
+  let orderBy;
+
+  if (orderbyAsc === true) {
+    orderBy = tableColumns
+      .map((col) => col.value)
+      .includes(searchParams.orderBy)
+      ? { [searchParams.orderBy]: "asc" }
+      : undefined;
+  } else {
+    orderBy = tableColumns
+      .map((col) => col.value)
+      .includes(searchParams.orderBy)
+      ? { [searchParams.orderBy]: "des" }
+      : undefined;
+  }
+
+  const issues = await prisma.issue.findMany({
+    where: {
+      status: checkStatus,
+    },
+    orderBy: orderBy,
+  });
 
   return (
     <div className="p-5">
