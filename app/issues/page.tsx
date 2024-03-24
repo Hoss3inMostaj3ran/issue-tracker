@@ -5,9 +5,10 @@ import NewIssueBtn from "./NewIssueBtn";
 import { Table } from "@radix-ui/themes";
 import StatusBadge from "./StatusBadge";
 import Link from "next/link";
+import { LuArrowUpWideNarrow } from "react-icons/lu";
 
 type Props = {
-  searchParams: { status: Status };
+  searchParams: { status: Status; orderBy: keyof Issue };
 };
 
 const page = async ({ searchParams }: Props) => {
@@ -44,7 +45,14 @@ const page = async ({ searchParams }: Props) => {
             <Table.Row>
               {tableColumns.map((col) => (
                 <Table.ColumnHeaderCell key={col.value}>
-                  {col.lable}
+                  <Link
+                    href={{ query: { ...searchParams, orderBy: col.value } }}
+                  >
+                    {col.lable}
+                    {searchParams.orderBy === col.value && (
+                      <LuArrowUpWideNarrow className="inline-block mx-1" />
+                    )}
+                  </Link>
                 </Table.ColumnHeaderCell>
               ))}
             </Table.Row>
