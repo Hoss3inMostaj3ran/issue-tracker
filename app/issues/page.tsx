@@ -1,9 +1,10 @@
 import prisma from "@/prisma/client";
-import { Status } from "@prisma/client";
-import Link from "next/link";
+import { Issue, Status } from "@prisma/client";
 import IssueFilter from "./_components/IssueFilter";
 import NewIssueBtn from "./NewIssueBtn";
+import { Table } from "@radix-ui/themes";
 import StatusBadge from "./StatusBadge";
+import Link from "next/link";
 
 type Props = {
   searchParams: { status: Status };
@@ -11,6 +12,7 @@ type Props = {
 
 const page = async ({ searchParams }: Props) => {
   const statuses = Object.values(Status);
+
   const checkStatus = statuses.includes(searchParams.status)
     ? searchParams.status
     : undefined;
@@ -21,38 +23,46 @@ const page = async ({ searchParams }: Props) => {
     },
   });
 
+  const tableColumns: {
+    lable: string;
+    value: keyof Issue;
+  }[] = [
+    { lable: "Issue", value: "title" },
+    { lable: "Status", value: "status" },
+    { lable: "Created", value: "createdAt" },
+  ];
+
   return (
     <div className="p-5">
       <div className="flex flex-row justify-between align-baseline">
         <NewIssueBtn />
         <IssueFilter />
       </div>
-      <div className="overflow-x-auto">
-        <table className="table table-zebra mb-5">
-          {/* head */}
-          <thead>
-            <tr className="text-base-content font-sans text-lg">
-              <th></th>
-              <th>Issues</th>
-              <th>Status</th>
-              <th>Created</th>
-            </tr>
-          </thead>
-          <tbody>
+      <div className="overflow-x-auto my-5">
+        <Table.Root variant="surface">
+          <Table.Header>
+            <Table.Row>
+              {tableColumns.map((col) => (
+                <Table.ColumnHeaderCell key={col.value}>
+                  {col.lable}
+                </Table.ColumnHeaderCell>
+              ))}
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
             {issues.map((i) => (
-              <tr key={i.id} className="hover">
-                <td>{i.id}</td>
-                <th>
+              <Table.Row key={i.id}>
+                <Table.ColumnHeaderCell>
                   <Link href={`issues/${i.id}`}>{i.title}</Link>
-                </th>
-                <td>
+                </Table.ColumnHeaderCell>
+                <Table.Cell>
                   <StatusBadge status={i.status} />
-                </td>
-                <td>{i.createdAt.toDateString()}</td>
-              </tr>
+                </Table.Cell>
+                <Table.Cell>{i.createdAt.toDateString()}</Table.Cell>
+              </Table.Row>
             ))}
-          </tbody>
-        </table>
+          </Table.Body>
+        </Table.Root>
       </div>
     </div>
   );
