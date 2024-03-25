@@ -1,3 +1,6 @@
+"use client";
+
+import { useRouter, useSearchParams } from "next/navigation";
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
 import { LuChevronFirst, LuChevronLast } from "react-icons/lu";
 
@@ -8,17 +11,33 @@ type Props = {
 };
 
 const Pagination = ({ pageSize, currentPage, itemsCount }: Props) => {
-  const totalPages = Math.ceil(itemsCount / pageSize);
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const params = new URLSearchParams(searchParams);
 
+  const totalPages = Math.ceil(itemsCount / pageSize);
   if (totalPages <= 1) return null;
+
+  const changePage = (page: number) => {
+    params.set("page", page.toString());
+    router.push("?" + params.toString());
+  };
 
   return (
     <div className="join flex">
-      <button className="join-item btn " disabled={currentPage === 1}>
+      <button
+        className="join-item btn "
+        onClick={() => changePage(1)}
+        disabled={currentPage === 1}
+      >
         <LuChevronFirst />
       </button>
 
-      <button className="join-item btn " disabled={currentPage === 1}>
+      <button
+        className="join-item btn "
+        onClick={() => changePage(currentPage - 1)}
+        disabled={currentPage === 1}
+      >
         <GrFormPrevious />
       </button>
 
@@ -28,11 +47,19 @@ const Pagination = ({ pageSize, currentPage, itemsCount }: Props) => {
         </label>
       </button>
 
-      <button className="join-item btn" disabled={currentPage === totalPages}>
+      <button
+        className="join-item btn"
+        onClick={() => changePage(currentPage + 1)}
+        disabled={currentPage === totalPages}
+      >
         <GrFormNext />
       </button>
 
-      <button className="join-item btn" disabled={currentPage === totalPages}>
+      <button
+        className="join-item btn"
+        onClick={() => changePage(totalPages)}
+        disabled={currentPage === totalPages}
+      >
         <LuChevronLast />
       </button>
     </div>
