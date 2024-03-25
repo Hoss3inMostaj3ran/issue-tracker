@@ -28,13 +28,13 @@ const DeleteButton = ({ id }: { id: number }) => {
     <>
       <AlertDialog.Root>
         <AlertDialog.Trigger>
-          <button className="btn bg-error" disabled={loading}>
-            <Link href={`/issues/${id}`} className="flex gap-2">
+          <Link href={`/issues/${id}`} className="flex gap-2">
+            <button className="btn bg-error w-full" disabled={loading}>
               <FaTrash />
               Delete
               {loading && <Spinner />}
-            </Link>
-          </button>
+            </button>
+          </Link>
         </AlertDialog.Trigger>
         <AlertDialog.Content style={{ maxWidth: 450 }}>
           <AlertDialog.Title>Delete Issue</AlertDialog.Title>
