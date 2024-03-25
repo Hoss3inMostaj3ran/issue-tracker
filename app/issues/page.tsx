@@ -64,7 +64,7 @@ const page = async ({ searchParams }: Props) => {
           <IssueTable issues={issues} searchParams={searchParams} />
         </div>
       </div>
-      <div className="mx-auto">
+      <div className="flex flex-row mx-auto">
         <Pagination
           currentPage={parseInt(searchParams.page)}
           itemsCount={totalIssues}
