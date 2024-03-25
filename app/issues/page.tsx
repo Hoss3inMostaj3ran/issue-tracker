@@ -1,5 +1,5 @@
 import prisma from "@/prisma/client";
-import { Issue, Status } from "@prisma/client";
+import { Status } from "@prisma/client";
 import Pagination from "../components/Pagination";
 import IssueFilter from "./_components/IssueFilter";
 import IssueTable, { IssueQuery, tableColumns } from "./_components/IssueTable";
