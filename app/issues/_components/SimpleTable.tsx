@@ -1,6 +1,6 @@
 import prisma from "@/prisma/client";
 import Link from "next/link";
-import StatusBadge from "../StatusBadge";
+import StatusBadge from "../../components/StatusBadge";
 
 const SimpleTable = async () => {
   const issues = await prisma.issue.findMany({});

@@ -1,5 +1,5 @@
 import ReactMarkdown from "react-markdown";
-import StatusBadge from "../StatusBadge";
+import StatusBadge from "../../components/StatusBadge";
 import { Issue } from "@prisma/client";
 
 const IssueDetails = ({ issue }: { issue: Issue }) => {
