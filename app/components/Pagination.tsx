@@ -10,13 +10,14 @@ type Props = {
   itemsCount: number;
 };
 
-const Pagination = ({ pageSize, currentPage, itemsCount }: Props) => {
+const Pagination = ({ pageSize, currentPage = 1, itemsCount }: Props) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const params = new URLSearchParams(searchParams);
 
   const totalPages = Math.ceil(itemsCount / pageSize);
   if (totalPages <= 1) return null;
+  if (!currentPage) currentPage = 1;
 
   const changePage = (page: number) => {
     params.set("page", page.toString());

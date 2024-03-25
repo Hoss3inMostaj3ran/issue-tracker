@@ -33,7 +33,6 @@ const IssueFilter = (props: Props) => {
           } else {
             params.delete("status");
           }
-          // status !== "UNDEFINED" ? params.append("status", status) : undefined;
 
           const query = params.toString() ? `?${params.toString()}` : "";
           router.push(`/issues/${query}`);
