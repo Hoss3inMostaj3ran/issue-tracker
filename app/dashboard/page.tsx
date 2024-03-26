@@ -1,6 +1,5 @@
 import prisma from "@/prisma/client";
-import IssuesCount from "./IssuesCount";
-import LatestIssues from "./LatestIssues";
+import IssueChart from "./IssueChart";
 
 export default async function page() {
   const closes = await prisma.issue.count({ where: { status: "CLOSE" } });
@@ -10,7 +9,7 @@ export default async function page() {
   });
   return (
     <div className="">
-      <IssuesCount closes={closes} opens={opens} inProgresses={inProgresses} />
+      <IssueChart closes={closes} opens={opens} inProgresses={inProgresses} />
     </div>
   );
 }
