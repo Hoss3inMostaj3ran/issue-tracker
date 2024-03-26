@@ -1,6 +1,6 @@
 "use client";
 
-import { Card } from "@radix-ui/themes";
+import { Card, Heading } from "@radix-ui/themes";
 import {
   LineChart,
   Line,
@@ -26,8 +26,21 @@ const IssueChart = ({ closes, inProgresses, opens }: Props) => {
   ];
   return (
     <Card>
-      <ResponsiveContainer width="100%" height={300}>
-        <BarChart width={500} height={300} data={data}>
+      <Heading my="3" mb="5" mx={"3"}>
+        Chart Statuse
+      </Heading>
+      <ResponsiveContainer
+        width={700}
+        minWidth={100}
+        minHeight={100}
+        height="85%"
+      >
+        <BarChart
+          width={500}
+          height={300}
+          data={data}
+          margin={{ top: 20, right: 30, left: 0, bottom: 0 }}
+        >
           <XAxis dataKey="lable" />
           <YAxis />
           <CartesianGrid stroke="#eee" strokeDasharray="5 5" />

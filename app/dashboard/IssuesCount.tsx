@@ -21,8 +21,8 @@ const IssuesCount = ({ opens, closes, inProgresses }: Props) => {
   ];
 
   return (
-    <div className="">
-      <Flex direction={"row"} justify={"between"} gap={"3"}>
+    <div className="p-2">
+      <div className="flex flex-col gap-4 md:flex-row">
         {issuesSummery.map((i) => (
           <Flex
             key={i.value}
@@ -42,7 +42,7 @@ const IssuesCount = ({ opens, closes, inProgresses }: Props) => {
             </div>
           </Flex>
         ))}
-      </Flex>
+      </div>
     </div>
   );
 };
