@@ -1,9 +1,15 @@
 import prisma from "@/prisma/client";
 import { Status } from "@prisma/client";
+import { Metadata } from "next";
 import Pagination from "../components/Pagination";
 import IssueFilter from "./_components/IssueFilter";
 import IssueTable, { IssueQuery, tableColumns } from "./_components/IssueTable";
 import NewIssueBtn from "./NewIssueBtn";
+
+export const metadata: Metadata = {
+  title: "Issue Tracker - Issue List",
+  description: "View All Project Issues",
+};
 
 type Props = {
   searchParams: IssueQuery;
